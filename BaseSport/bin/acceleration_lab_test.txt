@@ -1,0 +1,12 @@
+
+Activity Name: RopeSkipping/whc
+Left,Front
+no.	x	y	z	A	valid	vx	vy	vz	px	py	pz	sx	sy	sz	std-ratio
+
+Activity Name: Situps/whc
+Left,Front
+no.	x	y	z	A	valid	vx	vy	vz	px	py	pz	sx	sy	sz	std-ratio
+
+Activity Name: Walk/whc
+Left,Front
+no.	x	y	z	A	valid	vx	vy	vz	px	py	pz	sx	sy	sz	std-ratio
