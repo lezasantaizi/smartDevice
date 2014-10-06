@@ -2,8 +2,8 @@
 
 int main()
 {
-	string testFile = "D:/documents/bracelets/data/test/acceleration_lab_all.txt";
-	string outputDir = "D:/documents/bracelets/data/test";
+	string testFile = "acceleration_lab_all.txt";
+	string outputDir = "../test";
 
 	OnlineSportManager sportManager(outputDir);
 	sportManager.test(testFile);

@@ -13,8 +13,12 @@
 //======================================================================
 #include <iostream>
 #include <assert.h>
-using namespace  std;
+#include <vector>
+#include<fstream>
+#include "Sample.h"
+#include "Utils.h"
 
+using namespace  std;
 class Sport {
 public:
     /**
@@ -45,12 +49,12 @@ public:
     /**
      * the start time of the whole activity
      * */
-    Date start_time;
+    //Date start_time;
 
     /**
      * the whole recorded samples of the activity
      * */
-    ArrayList<Sample> Samples;
+    vector<Sample> Samples;
 	    /**
      * the window size when split the samples into windows
      * */
@@ -59,7 +63,7 @@ public:
     /**
      * splitting the samples into windows by window size
      * */
-    ArrayList<SampleWindow> Windows;
+    //vector<SampleWindow> Windows;
 	Sport();
 	~Sport();
 
@@ -86,7 +90,7 @@ void SplitSamplesByCount(int sample_count, double overlap_ratio);
      * @param useMinusAvg
      *            : whether record the sample by minus the average values
      * */
-int receiveSample(Sample sample, boolean useMinusAvg);
+int receiveSample(Sample sample, int useMinusAvg);
 
     /**
      * Get the action count. The number should be minus the reset num
@@ -115,11 +119,10 @@ double** getBasicFeatures() ;
      * @param activity_lines
      *            : lines which contain a single activity
      * @return the parsed activity
-     * @author Haocheng Wu
+     * @author Xiaoming Ren
      * @create 2014-8-20
      */
-static Sport Parse(ArrayList<String> activity_lines,
-				   int sampling_rate) ;
+static Sport Parse(vector<string> activity_lines,int sampling_rate) ;
 
     /**
      * Parse the input file into an activity list
@@ -127,10 +130,10 @@ static Sport Parse(ArrayList<String> activity_lines,
      * @param input_file
      *            : the path of the input file
      * @return the list of activity contains in the file.
-     * @author Haocheng Wu
+     * @author Xiaoming Ren
      * @create 2014-8-20
      */
-static ArrayList<Sport> Parse(String input_file, int sampling_rate) ;
+static vector<Sport> Parse(string input_file, int sampling_rate) ;
 protected:
     /**
      * get the valid action count
@@ -161,7 +164,7 @@ protected:
     /**
      * some basic features of the sport, such as standard deviation
      * */
-    double** _basic_features ;
+    double _basic_features[3][10] ;//[Utils::MaxAxisCount][Utils::BasicFeatureCount]
 
  
 

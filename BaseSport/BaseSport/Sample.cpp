@@ -2,17 +2,20 @@
 
 Sample::Sample()
 {
-	AxisValues = new double[7];
+
 	MinusAvgSample = NULL;
-	AverageAxisValues = new double[3];
+	
 }
 
+double Sample::AverageAxisValues[3] = {0};
 Sample::~Sample()
 {
 
 }
 
 Sample::Sample(int idx, double x, double y, double z) {
+
+	MinusAvgSample = NULL;
 	index = idx;
 	A = sqrt(x * x + y * y + z * z);
 
@@ -37,7 +40,7 @@ void Sample::resetAverageAxisValues() {
 	for (int i = 0; i < 3; ++i)
 		AverageAxisValues[i] = 0;
 }
-
+//
 Sample* Sample::GetMinusAvgSample() {
 	if (MinusAvgSample == NULL) {
 		AverageAxisValues[0] += (AxisValues[0] - AverageAxisValues[0])

@@ -13,6 +13,7 @@
 //======================================================================
 #include <iostream>
 #include <assert.h>
+#include <vector>
 using namespace  std;
 class Sample {
 public:
@@ -32,7 +33,7 @@ public:
 	/**
 	 * the axis value on each axis, there are 4 more self-defined axis
 	 * */
-	double* AxisValues ;
+	double AxisValues[7] ;
 
 	/**
 	 * the alternative sample whose axis each minus average on each axis
@@ -42,7 +43,7 @@ public:
 	/**
 	 * average axis value of each axis
 	 * */
-	static double* AverageAxisValues ;
+	static double AverageAxisValues[3] ;
 
 	/**
 	 * Description: Create new sample by minus average axis score

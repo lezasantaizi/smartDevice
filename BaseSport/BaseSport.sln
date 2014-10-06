@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseSport", "BaseSport\BaseSport.vcxproj", "{A314068C-B814-4DCC-B256-286BFDB25892}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BraceLet", "BaseSport\BaseSport.vcxproj", "{A314068C-B814-4DCC-B256-286BFDB25892}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "..\..\test\test.vcxproj", "{EFF35D46-342C-4829-828C-A7DEA782181D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{A314068C-B814-4DCC-B256-286BFDB25892}.Debug|Win32.Build.0 = Debug|Win32
 		{A314068C-B814-4DCC-B256-286BFDB25892}.Release|Win32.ActiveCfg = Release|Win32
 		{A314068C-B814-4DCC-B256-286BFDB25892}.Release|Win32.Build.0 = Release|Win32
+		{EFF35D46-342C-4829-828C-A7DEA782181D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EFF35D46-342C-4829-828C-A7DEA782181D}.Debug|Win32.Build.0 = Debug|Win32
+		{EFF35D46-342C-4829-828C-A7DEA782181D}.Release|Win32.ActiveCfg = Release|Win32
+		{EFF35D46-342C-4829-828C-A7DEA782181D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
