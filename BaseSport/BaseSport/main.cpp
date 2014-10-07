@@ -1,5 +1,4 @@
-#include "BaseFactory.h"
-
+#include "OnlineSportManager.h"
 int main()
 {
 	string testFile = "acceleration_lab_all.txt";

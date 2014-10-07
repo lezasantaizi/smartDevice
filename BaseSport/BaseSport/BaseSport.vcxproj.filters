@@ -16,11 +16,11 @@
     <Filter Include="algorithm">
       <UniqueIdentifier>{da80cb62-3a87-4281-be40-f95bf6aabadf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sport">
+      <UniqueIdentifier>{0b0e6104-f47e-4088-9f64-160f5edefe78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseFactory.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -36,11 +36,23 @@
     <ClCompile Include="Utils.cpp">
       <Filter>algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="OnlineSportManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlineSport.cpp">
+      <Filter>sport</Filter>
+    </ClCompile>
+    <ClCompile Include="PeakWindow.cpp">
+      <Filter>algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternList.cpp">
+      <Filter>algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternNode.cpp">
+      <Filter>algorithm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseFactory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Sample.h">
       <Filter>algorithm</Filter>
     </ClInclude>
@@ -51,6 +63,21 @@
       <Filter>algorithm</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
+      <Filter>algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineSportManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineSport.h">
+      <Filter>sport</Filter>
+    </ClInclude>
+    <ClInclude Include="PeakWindow.h">
+      <Filter>algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternList.h">
+      <Filter>algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternNode.h">
       <Filter>algorithm</Filter>
     </ClInclude>
   </ItemGroup>

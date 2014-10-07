@@ -65,16 +65,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="OnlineSport.cpp" />
+    <ClCompile Include="PatternList.cpp" />
+    <ClCompile Include="PatternNode.cpp" />
+    <ClCompile Include="PeakWindow.cpp" />
     <ClCompile Include="Sport.cpp" />
-    <ClCompile Include="BaseFactory.cpp" />
+    <ClCompile Include="OnlineSportManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="StorageManager.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OnlineSport.h" />
+    <ClInclude Include="PatternList.h" />
+    <ClInclude Include="PatternNode.h" />
+    <ClInclude Include="PeakWindow.h" />
     <ClInclude Include="Sport.h" />
-    <ClInclude Include="BaseFactory.h" />
+    <ClInclude Include="OnlineSportManager.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="StorageManager.h" />
     <ClInclude Include="Utils.h" />
