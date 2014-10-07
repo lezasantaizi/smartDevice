@@ -65,7 +65,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="OnlineRopeSkipping.cpp" />
+    <ClCompile Include="OnlineSitup.cpp" />
     <ClCompile Include="OnlineSport.cpp" />
+    <ClCompile Include="OnlineWalk.cpp" />
     <ClCompile Include="PatternList.cpp" />
     <ClCompile Include="PatternNode.cpp" />
     <ClCompile Include="PeakWindow.cpp" />
@@ -77,7 +80,10 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OnlineRopeSkipping.h" />
+    <ClInclude Include="OnlineSitup.h" />
     <ClInclude Include="OnlineSport.h" />
+    <ClInclude Include="OnlineWalk.h" />
     <ClInclude Include="PatternList.h" />
     <ClInclude Include="PatternNode.h" />
     <ClInclude Include="PeakWindow.h" />

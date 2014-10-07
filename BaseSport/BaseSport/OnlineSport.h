@@ -29,78 +29,71 @@ private :
 	 * whether the last sample is a possible valid action based on rules.
 	 * */
 	int _isPossibleValidActions[3] ;
-//
-//	/**
-//	 * the similarity scores of the pattern
-//	 * */
-//	double _pattern_similarity_scores[3];
-//
-//protected:
-//		/**
-//	 * the first peak windows on each axis
-//	 * */
-//	PeakWindow _firstWindows[3];
-//
-//	/**
-//	 * the second peak windows on each axis
-//	 * */
-//	PeakWindow _secondWindows[3];
-//
-//	/**
-//	 * @param sampleRate
-//	 *            sampling rate of the g-sensor
-//	 * @param minActionMilliSeconds
-//	 *            the minimum milliseconds needed for a valid action
-//	 * @param maxActionMilliSeconds
-//	 *            the maximum milliseconds needed for a valid action
-//	 * @param maxPatternSize
-//	 *            the maximum pattern size a the pattern list
-//	 * @param patternSimilarThreshold
-//	 *            the similarity threshold between two patterns
-//	 * */
-//
-//public:
-//	OnlineSport();
-//	~OnlineSport();
-//	OnlineSport(int samplingRate, int minActionMilliSeconds,
-//			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
-//			int maxPatternSize, double patternSimilarThreshold)
-//			{
-//		this(samplingRate, minActionMilliSeconds, maxActionMilliSeconds,
-//				minActionIntervalMillseSeconds, maxPatternSize,
-//				patternSimilarThreshold, 0.0D);
-//	}
-//
-//	/**
-//	 * @param sampleRate
-//	 *            sampling rate of the g-sensor
-//	 * @param minActionMilliSeconds
-//	 *            the minimum milliseconds needed for a valid action
-//	 * @param maxActionMilliSeconds
-//	 *            the maximum milliseconds needed for a valid action
-//	 * @param maxPatternSize
-//	 *            the maximum pattern size a the pattern list
-//	 * @param patternSimilarThreshold
-//	 *            the similarity threshold between two patterns
-//	 * @param absBandwidthThreshold
-//	 *            the abs bandwidth threshold valid to judge the band
-//	 * */
-//	public OnlineSport(int samplingRate, int minActionMilliSeconds,
-//			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
-//			int maxPatternSize, double patternSimilarThreshold,
-//			double absBandwidthThreshold) throws Exception {
-//		super(samplingRate);
-//		this._min_window_sample_count = (minActionMilliSeconds * samplingRate / 1000);
-//		this._max_window_sample_count = (maxActionMilliSeconds * samplingRate / 1000);
-//		for (int i = 0;; i++) {
-//			if (i >= Utils.MaxAxisCount)
-//				return;
-//			this._firstWindows[i] = new PeakWindow(i, absBandwidthThreshold);
-//			this._secondWindows[i] = new PeakWindow(i, absBandwidthThreshold);
-//			this._patternLists[i] = new PatternList(maxPatternSize,
-//					minActionIntervalMillseSeconds, patternSimilarThreshold);
-//		}
-//	}
+
+	/**
+	 * the similarity scores of the pattern
+	 * */
+	double _pattern_similarity_scores[3];
+
+protected:
+		/**
+	 * the first peak windows on each axis
+	 * */
+	PeakWindow _firstWindows[3];
+
+	/**
+	 * the second peak windows on each axis
+	 * */
+	PeakWindow _secondWindows[3];
+
+	/**
+	 * @param sampleRate
+	 *            sampling rate of the g-sensor
+	 * @param minActionMilliSeconds
+	 *            the minimum milliseconds needed for a valid action
+	 * @param maxActionMilliSeconds
+	 *            the maximum milliseconds needed for a valid action
+	 * @param maxPatternSize
+	 *            the maximum pattern size a the pattern list
+	 * @param patternSimilarThreshold
+	 *            the similarity threshold between two patterns
+	 * */
+
+public:
+	OnlineSport();
+	~OnlineSport();
+	OnlineSport(int samplingRate, int minActionMilliSeconds,int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
+		int maxPatternSize, double patternSimilarThreshold);
+
+	/**
+	 * @param sampleRate
+	 *            sampling rate of the g-sensor
+	 * @param minActionMilliSeconds
+	 *            the minimum milliseconds needed for a valid action
+	 * @param maxActionMilliSeconds
+	 *            the maximum milliseconds needed for a valid action
+	 * @param maxPatternSize
+	 *            the maximum pattern size a the pattern list
+	 * @param patternSimilarThreshold
+	 *            the similarity threshold between two patterns
+	 * @param absBandwidthThreshold
+	 *            the abs bandwidth threshold valid to judge the band
+	 * */
+	OnlineSport(int samplingRate, int minActionMilliSeconds,
+			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
+			int maxPatternSize, double patternSimilarThreshold,
+			double absBandwidthThreshold) :Sport(samplingRate){
+		//super(samplingRate);
+		_min_window_sample_count = (minActionMilliSeconds * samplingRate / 1000);
+		_max_window_sample_count = (maxActionMilliSeconds * samplingRate / 1000);
+		//for (int i = 0;; i++) {
+		//	if (i >= Utils::MaxAxisCount)
+		//		return;
+		//	_firstWindows[i] = new PeakWindow(i, absBandwidthThreshold);
+		//	_secondWindows[i] = new PeakWindow(i, absBandwidthThreshold);
+		//	_patternLists[i] = new PatternList(maxPatternSize,minActionIntervalMillseSeconds, patternSimilarThreshold);
+		//}
+	}
 //
 //	/**
 //	 * API: receive the sample

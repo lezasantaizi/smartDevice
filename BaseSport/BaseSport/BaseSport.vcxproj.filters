@@ -51,6 +51,15 @@
     <ClCompile Include="PatternNode.cpp">
       <Filter>algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="OnlineWalk.cpp">
+      <Filter>sport</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlineSitup.cpp">
+      <Filter>sport</Filter>
+    </ClCompile>
+    <ClCompile Include="OnlineRopeSkipping.cpp">
+      <Filter>sport</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -79,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="PatternNode.h">
       <Filter>algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineWalk.h">
+      <Filter>sport</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineSitup.h">
+      <Filter>sport</Filter>
+    </ClInclude>
+    <ClInclude Include="OnlineRopeSkipping.h">
+      <Filter>sport</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
