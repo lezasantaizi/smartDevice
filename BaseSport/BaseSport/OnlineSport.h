@@ -23,7 +23,7 @@ private :
 	/**
 	 * the overall lists of patterns on each axis
 	 * */
-	PatternList _patternLists[3];
+	PatternList* _patternLists[3];
 
 	/**
 	 * whether the last sample is a possible valid action based on rules.
@@ -34,17 +34,26 @@ private :
 	 * the similarity scores of the pattern
 	 * */
 	double _pattern_similarity_scores[3];
+	int receiveSample(Sample sample, int axis);
+
+		/**
+	 * Judge whether current two windows construct a valid action
+	 * 
+	 * @param axis
+	 *            the specific axis for the target two windows
+	 * */
+	int isValidAction(int axis) ;
 
 protected:
 		/**
 	 * the first peak windows on each axis
 	 * */
-	PeakWindow _firstWindows[3];
+	PeakWindow* _firstWindows[3];
 
 	/**
 	 * the second peak windows on each axis
 	 * */
-	PeakWindow _secondWindows[3];
+	PeakWindow* _secondWindows[3];
 
 	/**
 	 * @param sampleRate
@@ -82,137 +91,20 @@ public:
 	OnlineSport(int samplingRate, int minActionMilliSeconds,
 			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
 			int maxPatternSize, double patternSimilarThreshold,
-			double absBandwidthThreshold) :Sport(samplingRate){
-		//super(samplingRate);
-		_min_window_sample_count = (minActionMilliSeconds * samplingRate / 1000);
-		_max_window_sample_count = (maxActionMilliSeconds * samplingRate / 1000);
-		//for (int i = 0;; i++) {
-		//	if (i >= Utils::MaxAxisCount)
-		//		return;
-		//	_firstWindows[i] = new PeakWindow(i, absBandwidthThreshold);
-		//	_secondWindows[i] = new PeakWindow(i, absBandwidthThreshold);
-		//	_patternLists[i] = new PatternList(maxPatternSize,minActionIntervalMillseSeconds, patternSimilarThreshold);
-		//}
-	}
-//
-//	/**
-//	 * API: receive the sample
-//	 * */
-//	@Override
-//	public boolean receiveSample(Sample sample, boolean useMinusAvg)
-//			throws Exception {
-//		Sample usedSample = useMinusAvg ? sample.GetMinusAvgSample() : sample;
-//		_sample_count = sample.index;
-//
-//		// calculate the overall basic features by input sample
-//		calculateFeatureByNewSample(sample);
-//
-//		boolean isValid = false;
-//		this._valid_action_count = 0;
-//
-//		for (int j = 0; j < Utils.MaxAxisCount; j++) {
-//
-//			if (!isValid)
-//				isValid = receiveSample(usedSample, j);
-//
-//			if (this._valid_action_count < this._patternLists[j]
-//					.getActionCount())
-//				this._valid_action_count = this._patternLists[j]
-//						.getActionCount();
-//		}
-//
-//		return isValid;
-//	}
-//
-//	/**
-//	 * Receive the sample value by specific axis
-//	 * */
-//	private boolean receiveSample(Sample sample, int axis) throws Exception {
-//		// second window is not empty: then try to add to second window
-//		if (this._secondWindows[axis].isPositive() != 0) {
-//			// if cannot add to second window
-//			if (!this._secondWindows[axis].addValue(sample, axis)) {
-//				// discard the second window if it is too small
-//				if (this._secondWindows[axis].size() < _MAX_DISCARD_SAMPLE_COUNT) {
-//					this._secondWindows[axis].clear();
-//					receiveSample(sample, axis);
-//				}
-//
-//				// discard the first and second window if it is small
-//				else if (this._secondWindows[axis].size() < this._min_window_sample_count) {
-//
-//					this._firstWindows[axis].clear();
-//					this._secondWindows[axis].clear();
-//					this._firstWindows[axis].addValue(sample, axis);
-//				}
-//
-//				// A VALID ACTION CANDIDATE!
-//				else {
-//					boolean isValid = isValidAction(axis);
-//					this._firstWindows[axis].clear();
-//					this._secondWindows[axis].clear();
-//					receiveSample(sample, axis);
-//					return isValid;
-//				}
-//			}
-//
-//			// if can add to the second window
-//			// A VALID ACTION CANDIDATE if exceed maximum sample count
-//			else if (this._secondWindows[axis].size() >= this._max_window_sample_count) {
-//				boolean isValid = isValidAction(axis);
-//				this._firstWindows[axis].clear();
-//				this._secondWindows[axis].clear();
-//				return isValid;
-//			}
-//		}
-//
-//		// second window is empty: then try to add to first window
-//		// if cannot add to first window
-//		else if (!this._firstWindows[axis].addValue(sample, axis)) {
-//
-//			// if first window is too small then discard it
-//			if (this._firstWindows[axis].size() < this._min_window_sample_count) {
-//				this._firstWindows[axis].clear();
-//				this._firstWindows[axis].addValue(sample, axis);
-//			} else {
-//				this._secondWindows[axis].addValue(sample, axis);
-//			}
-//		}
-//
-//		// if first window exceed maximum sample count, handle the overdue
-//		else if (this._firstWindows[axis].size() >= this._max_window_sample_count) {
-//			this._firstWindows[axis].handleOverdue();
-//		}
-//
-//		return false;
-//	}
-//
-//	/**
-//	 * Judge whether current two windows construct a valid action
-//	 * 
-//	 * @param axis
-//	 *            the specific axis for the target two windows
-//	 * */
-//	private boolean isValidAction(int axis) throws Exception {
-//		if (isPossibleValidAction(axis)) {
-//			this._firstWindows[axis].calculateFeatures();
-//			this._secondWindows[axis].calculateFeatures();
-//
-//			int formerActionCount = this._patternLists[axis].getActionCount();
-//			int currentActionCount = this._patternLists[axis].add(
-//					this._firstWindows[axis], this._secondWindows[axis]);
-//
-//			this._isPossibleValidActions[axis] = true;
-//			this._pattern_similarity_scores[axis] = this._patternLists[axis]
-//					.getLastSimilarityScore();
-//
-//			return currentActionCount != formerActionCount;
-//		} else {
-//			this._isPossibleValidActions[axis] = false;
-//		}
-//
-//		return false;
-//	}
+			double absBandwidthThreshold) :Sport(samplingRate);
+
+	/**
+	 * API: receive the sample
+	 * */
+
+	int receiveSample(Sample sample, int useMinusAvg);
+
+	/**
+	 * Receive the sample value by specific axis
+	 * */
+
+
+
 //
 //	/**
 //	 * I need the string to debug the output result
@@ -223,11 +115,11 @@ public:
 //		// valid action count on each axis
 //		for (int k = 0; k < Utils.MaxAxisCount; ++k)
 //			sample_line += "\t"
-//					+ Double.toString(this._patternLists[k].getActionCount() / 10.0);
+//					+ Double.toString(_patternLists[k].getActionCount() / 10.0);
 //
 //		// whether is possible action on each axis
 //		for (int k = 0; k < Utils.MaxAxisCount; ++k)
-//			sample_line += "\t" + (this._isPossibleValidActions[k] ? "1" : "0");
+//			sample_line += "\t" + (_isPossibleValidActions[k] ? "1" : "0");
 //
 //		// pattern similarity score on each axis
 //		for (int k = 0; k < Utils.MaxAxisCount; ++k)
@@ -251,8 +143,8 @@ public:
 //	 * */
 //	public void resetIsPossibleValidActions() {
 //		for (int i = 0; i < Utils.MaxAxisCount; i++) {
-//			this._isPossibleValidActions[i] = false;
-//			this._pattern_similarity_scores[i] = 0;
+//			_isPossibleValidActions[i] = false;
+//			_pattern_similarity_scores[i] = 0;
 //		}
 //	}
 //
@@ -271,8 +163,8 @@ public:
 //	 * */
 //	public void zeroClearing() {
 //		
-//		this._last_reset_sample_num = this._sample_count;
-//		this._last_reset_action_num = 0;
+//		_last_reset_sample_num = _sample_count;
+//		_last_reset_action_num = 0;
 //		
 //		for (int i = 0; i < Utils.MaxAxisCount; ++i) {
 //			_patternLists[i].zeroClearing();

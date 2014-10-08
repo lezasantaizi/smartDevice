@@ -113,20 +113,27 @@ void OnlineSportManager::start(string sportName, string hand, string side,
 	// reset the average axis values
 	Sample::resetAverageAxisValues();
 
-	//if (sportName.contains("Situps")) {
-	//	_sport = new OnlineSitup(sampling_rate);
-	//	_support_online_show = supportOnlineShow;
-	//} else if (sportName.contains("RopeSkipping")) {
-	//	_sport = new OnlineRopeSkipping(sampling_rate);
-	//	_support_online_show = supportOnlineShow;
-	//} else if (sportName.contains("Walk")) {
-	//	_sport = new OnlineWalk(sampling_rate);
-	//	_support_online_show = supportOnlineShow;
-	//} else {
-	//	_sport = new Sport(sampling_rate);
-	//	_support_online_show = false; // not supported activity is not
-	//	// online show
-	//}
+	if (sportName.find("Situps") != -1) 
+	{
+		_sport = new OnlineSitup(sampling_rate);
+		_support_online_show = supportOnlineShow;
+	} 
+	else if (sportName.find("RopeSkipping")!= -1) 
+	{
+		_sport = new OnlineRopeSkipping(sampling_rate);
+		_support_online_show = supportOnlineShow;
+	} 
+	else if (sportName.find("Walk")!= -1) 
+	{
+		_sport = new OnlineWalk(sampling_rate);
+		_support_online_show = supportOnlineShow;
+	} 
+	else 
+	{
+		_sport = new Sport(sampling_rate);
+		_support_online_show = false; // not supported activity is not
+		// online show
+	}
 
 	//_sample_index = 1;
 	//_sample_count = 0;
@@ -172,15 +179,15 @@ int OnlineSportManager::test(string testFile)
 			//	fout.write("no.\tx\ty\tz\tA\tvalid\tvx\tvy\tvz\tpx\tpy\tpz\tsx\tsy\tsz\tstd-ratio\n"
 			//		.getBytes());
 
-			//OnlineSport sport = NULL;
-			//if (!activity.name.compare("Situps"))
-			//	sport = new OnlineSitup(sampling_rate);
-			//else if (!activity.name.compare("RopeSkipping"))
-			//	sport = new OnlineRopeSkipping(sampling_rate);
-			//else if (!activity.name.compare("Walk"))
-			//	sport = new OnlineWalk(sampling_rate);
-			//else
-			//	continue;
+			OnlineSport *sport = NULL;
+			if (!activity.name.compare("Situps"))
+				sport = new OnlineSitup(sampling_rate);
+			else if (!activity.name.compare("RopeSkipping"))
+				sport = new OnlineRopeSkipping(sampling_rate);
+			else if (!activity.name.compare("Walk"))
+				sport = new OnlineWalk(sampling_rate);
+			else
+				continue;
 
 			for (int j = 0; j < activity.Samples.size(); ++j) {
 
@@ -198,20 +205,23 @@ int OnlineSportManager::test(string testFile)
 				//	minusAvgSample.AxisValues[2],
 				//	minusAvgSample.A);
 
-				//if (sport.receiveSample(sample, true)) 
-				//{
-				//	_test_action_count = sport.getActionCount();
-				//	sample_line += itoa(_test_action_count / 10.0);//Double.toString(_test_action_count / 10.0);
-				//} 
-				//else 
-				//{
-				//	sample_line += "0";
-				//}
+				if (sport->receiveSample(sample, true)) 
+				{
+					char temp[64];
+					
+					_test_action_count = sport->getActionCount();
+					sprintf(temp, "%6.4f", _test_action_count / 10.0);
+					sample_line += temp;//Double.toString(_test_action_count / 10.0);
+				} 
+				else 
+				{
+					sample_line += "0";
+				}
 
-				//sample_line += sport.getDebugString();
+				//sample_line += sport->getDebugString();
 				//sample_line += "\n";
 
-				//sport.resetIsPossibleValidActions();
+				//sport->resetIsPossibleValidActions();
 				//fout.write(sample_line.getBytes());
 			}
 		}

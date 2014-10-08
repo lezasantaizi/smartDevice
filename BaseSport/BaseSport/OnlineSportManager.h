@@ -15,6 +15,9 @@
 #include "Sample.h"
 #include "Utils.h"
 #include "StorageManager.h"
+#include "OnlineSitup.h"
+#include "OnlineWalk.h"
+#include "OnlineRopeSkipping.h"
 
 class OnlineSportManager
 {
