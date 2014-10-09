@@ -14,6 +14,7 @@
 #include <iostream>
 #include <assert.h>
 #include <vector>
+#include <time.h>
 using namespace  std;
 class Utils {
 public:
@@ -52,7 +53,7 @@ public:
 	// * @author Haocheng Wu
 	// * @create 2014-8-20
 	// */
-	//static Date ParseTime(string time_string) ;
+	static string ParseTime(string time_string) ;
 
 	///**
 	// * Description : Add seconds based on a given date

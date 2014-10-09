@@ -165,8 +165,8 @@ int OnlineSportManager::test(string testFile)
 			outfile<<temp;
 			sprintf(temp,"%s,%s\n",activity.hand.c_str(),activity.side.c_str());
 			outfile<<temp;
-			//sprintf(temp,"%s\n",Utils::dateFormat);
-			//outfile<<temp;
+			sprintf(temp,"%s\n",activity.start_time.c_str());
+			outfile<<temp;
 			sprintf(temp,"no.\tx\ty\tz\tA\tvalid\tvx\tvy\tvz\tpx\tpy\tpz\tsx\tsy\tsz\tstd-ratio\n");
 			outfile<<temp;
 			//	// print information

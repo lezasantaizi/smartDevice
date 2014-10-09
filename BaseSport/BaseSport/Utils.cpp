@@ -18,11 +18,15 @@ int Utils::BracePeaceAccelerationNormValue = 1059;
 //	}
 //}
 //
-//Date Utils::ParseTime(string time_string) {
-//
-//	return TimeFormat.parse(time_string);
-//
-//}
+string Utils::ParseTime(string time_string) {
+	char buf[80];  
+	//struct tm *local;  
+	//time_t nowtime;  
+	//local=localtime(&nowtime);  
+	//strftime(buf,80,"%Y-%m-%d %H:%M:%S",local);  
+	return buf;
+
+}
 //
 //Date Utils::AddSeconds(Date date, int seconds) {
 //	Calendar calendar = Calendar.getInstance();

@@ -2,30 +2,37 @@
 
 
 int PeakWindow::_MIN_BAND_DISTANCE = 2;
-PeakWindow::PeakWindow()
+void PeakWindow::Init()
 {
 	_startIndex = -1;
 	_endIndex = -1;
 	_isPositive = 0;
-	_axis = -1;
 	_size = 0;
 	_absMaxValue = 0;
-	_absBandwidthThreshold = 0;
 	_curBandwidthSampleCount = 0;
 	_maxBandwidthSampleCount = 0;
 	_bandCount = 0;
 	_lastOutBandIndex = -1;
 	_isInBand = false;
-	double _square_sum = 0; 
+	_square_sum = 0; 
 }
 
+PeakWindow::PeakWindow()
+{
+	_axis = -1;
+	_absBandwidthThreshold = 0;
+	Init();
+}
 PeakWindow::PeakWindow(int axis) {
 	_axis = axis;
+	_absBandwidthThreshold = 0;
+	Init();
 }
 
 PeakWindow::PeakWindow(int axis, double absBrandwidthThreshold) {
 	_axis = axis;
 	_absBandwidthThreshold = absBrandwidthThreshold;
+	Init();
 }
 
 int PeakWindow::addValue(Sample sample, int axis){

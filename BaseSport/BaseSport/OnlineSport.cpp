@@ -64,9 +64,11 @@ int OnlineSport::receiveSample(Sample sample, int axis)
 	// second window is not empty: then try to add to second window
 	if (_secondWindows[axis]->isPositive() != 0) {
 		// if cannot add to second window
-		if (!_secondWindows[axis]->addValue(sample, axis)) {
+		if (!_secondWindows[axis]->addValue(sample, axis)) 
+		{
 			// discard the second window if it is too small
-			if (_secondWindows[axis]->size() < _MAX_DISCARD_SAMPLE_COUNT) {
+			if (_secondWindows[axis]->size() < _MAX_DISCARD_SAMPLE_COUNT) 
+			{
 				_secondWindows[axis]->clear();
 				receiveSample(sample, axis);
 			}
@@ -91,7 +93,8 @@ int OnlineSport::receiveSample(Sample sample, int axis)
 
 		// if can add to the second window
 		// A VALID ACTION CANDIDATE if exceed maximum sample count
-		else if (_secondWindows[axis]->size() >= _max_window_sample_count) {
+		else if (_secondWindows[axis]->size() >= _max_window_sample_count) 
+		{
 			int isValid = isValidAction(axis);
 			_firstWindows[axis]->clear();
 			_secondWindows[axis]->clear();
@@ -155,8 +158,16 @@ string OnlineSport::getDebugString() {
 	// whether is possible action on each axis
 	for (int k = 0; k < Utils::MaxAxisCount; ++k)
 	{
-		sprintf(temp,"\t%6.4f",(_isPossibleValidActions[k] != 0 ? 1 : 0));
-		sample_line += temp;
+		if (_isPossibleValidActions[k] != 0)
+		{
+			sample_line += "\t1";
+		}
+		else
+		{
+			sample_line += "\t0";
+		}
+		//sprintf(temp,"\t%6.4f",( ? 1 : 0));
+		//sample_line += temp;
 		//sample_line += "\t" + ;
 	}
 		

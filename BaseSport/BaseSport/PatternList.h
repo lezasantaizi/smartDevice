@@ -17,7 +17,7 @@ private:
 	double _last_similarity ;
 	PatternNode* _head ;
 	PatternNode* _tail ;
-
+	void Init();
 
 public:
 	PatternList(void);

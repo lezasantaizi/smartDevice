@@ -1,14 +1,17 @@
 #include "PatternList.h"
 
 
-PatternList::PatternList()
+void PatternList::Init()
 {
 	_last_similarity = 0;
 	_head = NULL;
 	_tail = NULL;
 }
 
-
+PatternList::PatternList()
+{
+	Init();
+}
 PatternList::~PatternList()
 {
 }
@@ -20,8 +23,7 @@ PatternList::PatternList(int maxSize, int max_interval_milliseconds,double simil
 	_similarThreshold = similarThreshold;
 	_max_interval_sample_count = max_interval_milliseconds / 1000 * Utils::SamplingRate;
 	_count = 0;
-	_head = NULL;
-	_tail = NULL;
+	Init();
 }
 
 int PatternList::maxSize() {

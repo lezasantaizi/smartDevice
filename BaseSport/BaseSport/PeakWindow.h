@@ -88,6 +88,7 @@ private:
 	 * */
 	vector<double> _features;
 	void recordBand(double value) ;
+	void Init();
 	/**
 	 * the window needs to be specified by the axis
 	 * */

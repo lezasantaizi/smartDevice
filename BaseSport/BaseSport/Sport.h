@@ -49,7 +49,7 @@ public:
     /**
      * the start time of the whole activity
      * */
-    //Date start_time;
+    string start_time;
 
     /**
      * the whole recorded samples of the activity

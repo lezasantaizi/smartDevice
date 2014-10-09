@@ -109,7 +109,7 @@ Sport Sport::Parse(vector<string> activity_lines,  int sampling_rate) {
 	activity.side = Utils::trim(hand_side_items[1]);//hand_side_items[1].trim();
 
 	// parse time stamp
-	//activity.start_time = Utils::ParseDate(Utils::trim(activity_lines[2]));//activity_lines.get(2).trim());
+	activity.start_time = Utils::trim(activity_lines[2]);//activity_lines.get(2).trim());
 	int index = 1;
 	//useless!
 	for (int i = 4; i < activity_lines.size(); ++i) 
