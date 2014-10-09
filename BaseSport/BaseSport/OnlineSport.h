@@ -55,6 +55,18 @@ protected:
 	 * */
 	PeakWindow* _secondWindows[3];
 
+
+	
+	/**
+	 * Use rule based method to filter the possible valid action
+	 * */
+	virtual int isPossibleValidAction(int axis) ;
+
+	/**
+	 * check whether the activity is cheat, if yes, clean the action count
+	 * */
+	virtual int checkCheat() ;
+
 	/**
 	 * @param sampleRate
 	 *            sampling rate of the g-sensor
@@ -91,13 +103,13 @@ public:
 	OnlineSport(int samplingRate, int minActionMilliSeconds,
 			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
 			int maxPatternSize, double patternSimilarThreshold,
-			double absBandwidthThreshold) :Sport(samplingRate);
+			double absBandwidthThreshold) ;
 
 	/**
 	 * API: receive the sample
 	 * */
 
-	int receiveSample(Sample sample, int useMinusAvg);
+	virtual int receiveSample(Sample sample, bool useMinusAvg);
 
 	/**
 	 * Receive the sample value by specific axis
@@ -105,73 +117,21 @@ public:
 
 
 
-//
-//	/**
-//	 * I need the string to debug the output result
-//	 * */
-//	public String getDebugString() {
-//		String sample_line = "";
-//
-//		// valid action count on each axis
-//		for (int k = 0; k < Utils.MaxAxisCount; ++k)
-//			sample_line += "\t"
-//					+ Double.toString(_patternLists[k].getActionCount() / 10.0);
-//
-//		// whether is possible action on each axis
-//		for (int k = 0; k < Utils.MaxAxisCount; ++k)
-//			sample_line += "\t" + (_isPossibleValidActions[k] ? "1" : "0");
-//
-//		// pattern similarity score on each axis
-//		for (int k = 0; k < Utils.MaxAxisCount; ++k)
-//			sample_line += "\t"
-//					+ Double.toString(_pattern_similarity_scores[k] * 10);
-//
-//		// max std / 
-//		double min_std = Math.min(
-//				Math.min(_basic_features[0][0], _basic_features[1][0]),
-//				_basic_features[2][0]);
-//		double max_std = Math.max(
-//				Math.max(_basic_features[0][0], _basic_features[1][0]),
-//				_basic_features[2][0]);
-//		sample_line += "\t" + Double.toString(max_std / min_std);
-//		
-//		return sample_line;
-//	}
-//
-//	/**
-//	 * set the possible valid action count
-//	 * */
-//	public void resetIsPossibleValidActions() {
-//		for (int i = 0; i < Utils.MaxAxisCount; i++) {
-//			_isPossibleValidActions[i] = false;
-//			_pattern_similarity_scores[i] = 0;
-//		}
-//	}
-//
-//	/**
-//	 * Use rule based method to filter the possible valid action
-//	 * */
-//	protected abstract boolean isPossibleValidAction(int axis);
-//
-//	/**
-//	 * check whether the activity is cheat, if yes, clean the action count
-//	 * */
-//	protected abstract boolean checkCheat();
-//
-//	/**
-//	 * clear the number of the patterns
-//	 * */
-//	public void zeroClearing() {
-//		
-//		_last_reset_sample_num = _sample_count;
-//		_last_reset_action_num = 0;
-//		
-//		for (int i = 0; i < Utils.MaxAxisCount; ++i) {
-//			_patternLists[i].zeroClearing();
-//
-//			for (int j = 0; j < Utils.BasicFeatureCount; ++j)
-//				_basic_features[i][j] = 0;
-//		}
-//	}
+
+	/**
+	 * I need the string to debug the output result
+	 * */
+	string getDebugString() ;
+
+	/**
+	 * set the possible valid action count
+	 * */
+	void resetIsPossibleValidActions() ;
+
+
+	/**
+	 * clear the number of the patterns
+	 * */
+	void zeroClearing() ;
 };
 #endif

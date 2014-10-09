@@ -16,6 +16,7 @@
 #include <assert.h>
 #include <vector>
 #include "Sport.h"
+#include<fstream>
 using namespace  std;
 class StorageManager {
 private:
@@ -23,21 +24,25 @@ private:
 	 * the folder to store the data file
 	 * */
 	//File _storage_dir;
+	ofstream  _storage_dir;
 
 	///**
 	// * the overall data file to store all the activities
 	// * */
 	//File _all_storage_file;
+	ofstream  _all_storage_file;
 
 	///**
 	// * the data file to store one activity
 	// * */
 	//File _temp_storage_file;
+	ofstream  _temp_storage_file;
 
 	///**
 	// * the test file to store the test result
 	// * */
 	//File _test_storage_file;
+	ofstream  _test_storage_file;
 
 
 public:

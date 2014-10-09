@@ -90,7 +90,7 @@ void SplitSamplesByCount(int sample_count, double overlap_ratio);
      * @param useMinusAvg
      *            : whether record the sample by minus the average values
      * */
-int receiveSample(Sample sample, int useMinusAvg);
+int receiveSample(Sample sample, bool useMinusAvg);
 
     /**
      * Get the action count. The number should be minus the reset num

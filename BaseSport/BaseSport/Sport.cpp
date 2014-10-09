@@ -64,7 +64,7 @@ Sport::Sport(int sampling_rate) {
 //}
 
 //useless! always return false!!
-int Sport::receiveSample(Sample sample, int useMinusAvg)
+int Sport::receiveSample(Sample sample, bool useMinusAvg)
 {
 		_sample_count = sample.index;
 		calculateFeatureByNewSample(sample);

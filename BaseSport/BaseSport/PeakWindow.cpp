@@ -29,7 +29,7 @@ PeakWindow::PeakWindow(int axis, double absBrandwidthThreshold) {
 }
 
 int PeakWindow::addValue(Sample sample, int axis){
-	assert(axis != this->axis());
+	assert(axis == this->axis());
 	return addValue(sample.AxisValues[axis], sample.index);
 }
 

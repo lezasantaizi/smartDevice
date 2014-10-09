@@ -1,6 +1,6 @@
 #include "OnlineSport.h"
 
-//int OnlineSport::_MAX_DISCARD_SAMPLE_COUNT = 2;
+int OnlineSport::_MAX_DISCARD_SAMPLE_COUNT = 2;
 
 OnlineSport::OnlineSport()
 {
@@ -35,9 +35,10 @@ OnlineSport::OnlineSport(int samplingRate, int minActionMilliSeconds,
 				}
 }
 
-int OnlineSport::receiveSample(Sample sample, int useMinusAvg)
+
+int OnlineSport::receiveSample(Sample sample, bool useMinusAvg)
 {
-	Sample usedSample = useMinusAvg ? sample.GetMinusAvgSample() : sample;
+	Sample usedSample = useMinusAvg ? *(sample.GetMinusAvgSample()) : sample;
 	_sample_count = sample.index;
 
 	// calculate the overall basic features by input sample
@@ -130,7 +131,7 @@ int OnlineSport::isValidAction(int axis) {
 
 		_isPossibleValidActions[axis] = true;
 		_pattern_similarity_scores[axis] = _patternLists[axis]
-		.getLastSimilarityScore();
+		->getLastSimilarityScore();
 
 		return currentActionCount != formerActionCount;
 	} else {
@@ -138,4 +139,74 @@ int OnlineSport::isValidAction(int axis) {
 	}
 
 	return false;
+}
+
+string OnlineSport::getDebugString() {
+	string sample_line = "";
+	char temp[64];
+	// valid action count on each axis
+	for (int k = 0; k < Utils::MaxAxisCount; ++k)
+	{
+		sprintf(temp,"\t%6.4f",_patternLists[k]->getActionCount() / 10.0);
+		sample_line += temp;
+	}
+
+
+	// whether is possible action on each axis
+	for (int k = 0; k < Utils::MaxAxisCount; ++k)
+	{
+		sprintf(temp,"\t%6.4f",(_isPossibleValidActions[k] != 0 ? 1 : 0));
+		sample_line += temp;
+		//sample_line += "\t" + ;
+	}
+		
+
+	// pattern similarity score on each axis
+	for (int k = 0; k < Utils::MaxAxisCount; ++k)
+	{
+		sprintf(temp,"\t%6.4f",_pattern_similarity_scores[k] * 10);
+		sample_line += temp;
+	}
+
+	// max std / 
+	double min_std = min(min(_basic_features[0][0], _basic_features[1][0]),
+		_basic_features[2][0]);
+	double max_std = max(max(_basic_features[0][0], _basic_features[1][0]),
+		_basic_features[2][0]);
+
+	sprintf(temp,"\t%6.4f",max_std / min_std);
+	sample_line += temp;
+
+	return sample_line;
+}
+
+
+void OnlineSport::resetIsPossibleValidActions() {
+	for (int i = 0; i < Utils::MaxAxisCount; i++) {
+		_isPossibleValidActions[i] = false;
+		_pattern_similarity_scores[i] = 0;
+	}
+}
+
+void OnlineSport::zeroClearing() {
+
+	_last_reset_sample_num = _sample_count;
+	_last_reset_action_num = 0;
+
+	for (int i = 0; i < Utils::MaxAxisCount; ++i) {
+		_patternLists[i]->zeroClearing();
+
+		for (int j = 0; j < Utils::BasicFeatureCount; ++j)
+			_basic_features[i][j] = 0;
+	}
+}
+
+int OnlineSport::isPossibleValidAction(int axis)
+{
+	return 0;
+}
+
+int OnlineSport::checkCheat()
+{
+	return 0;
 }

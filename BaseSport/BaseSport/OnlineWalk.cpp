@@ -13,18 +13,18 @@ OnlineWalk::OnlineWalk(int sampling_rate):OnlineSport(sampling_rate, 200, 500, 1
 	//super
 }
 int OnlineWalk::isPossibleValidAction(int axis) {
-	PeakWindow firstWindow = _firstWindows[axis];
-	PeakWindow secondWindow = _secondWindows[axis];
+	PeakWindow* firstWindow = _firstWindows[axis];
+	PeakWindow* secondWindow = _secondWindows[axis];
 
 	if (
 		// different values
-			firstWindow.isPositive() * secondWindow.isPositive() < 0
+			firstWindow->isPositive() * secondWindow->isPositive() < 0
 
 			// max value limits
-			&& (firstWindow.absMaxValue() >= 0.3 || secondWindow.absMaxValue() >= 0.3)
+			&& (firstWindow->absMaxValue() >= 0.3 || secondWindow->absMaxValue() >= 0.3)
 
 			// bandwidth limits
-			&& (firstWindow.bandwidth() >= 5 || secondWindow.bandwidth() >= 5))
+			&& (firstWindow->bandwidth() >= 5 || secondWindow->bandwidth() >= 5))
 			return true;
 	else
 		return false;

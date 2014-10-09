@@ -135,14 +135,14 @@ void OnlineSportManager::start(string sportName, string hand, string side,
 		// online show
 	}
 
-	//_sample_index = 1;
-	//_sample_count = 0;
-	//_sport->name = sportName;
-	//_sport->description = description;
-	//_sport->hand = hand;
-	//_sport->side = side;
+	_sample_index = 1;
+	_sample_count = 0;
+	_sport->name = sportName;
+	_sport->description = description;
+	_sport->hand = hand;
+	_sport->side = side;
 	//_sport->start_time = new Date();
-	//_header_printed = false;
+	_header_printed = false;
 }
 
 int OnlineSportManager::test(string testFile)
@@ -218,10 +218,10 @@ int OnlineSportManager::test(string testFile)
 					sample_line += "0";
 				}
 
-				//sample_line += sport->getDebugString();
-				//sample_line += "\n";
+				sample_line += sport->getDebugString();
+				sample_line += "\n";
 
-				//sport->resetIsPossibleValidActions();
+				sport->resetIsPossibleValidActions();
 				//fout.write(sample_line.getBytes());
 			}
 		}
@@ -239,7 +239,7 @@ int OnlineSportManager::getTestActionCount() {
 
 //int OnlineSportManager::checkCheat() {
 //	if (_sport != NULL && _sport instanceof OnlineSport)
-//		return ((OnlineSport) _sport).checkCheat();
+//		return _sport->checkCheat();
 //	else
 //		return false;
 //}

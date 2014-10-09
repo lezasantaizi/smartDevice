@@ -46,7 +46,7 @@ public:
 	 * 
 	 * @return the valid action count
 	 * */
-	int add(PeakWindow firstWindow, PeakWindow secondWindow);
+	int add(PeakWindow* firstWindow, PeakWindow* secondWindow);
 
 	/**
 	 * Swap two consecutive nodes
@@ -58,7 +58,7 @@ public:
 	/**
 	 * delete the specified node.
 	 * */
-	void deleteAll(PatternNode node) ;
+	void deleteAll(PatternNode* node) ;
 	
 	/**
 	 * get the last similarity score of the pattern, used for debug

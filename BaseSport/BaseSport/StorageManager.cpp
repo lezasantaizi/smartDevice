@@ -71,9 +71,23 @@ void StorageManager::cleanStorage() {
 }
 
 void StorageManager::startWritingSport(Sport* sport){
-	//// empty the temp file
+	// empty the temp file
 	//FileOutputStream fout = new FileOutputStream(_temp_storage_file, false);
 
+	_temp_storage_file.open("acceleration_lab_temp.txt");
+	if(_temp_storage_file.is_open())   
+	{
+		char temp[128];
+		sprintf(temp,"\nActivity Name: %s/%s\n",sport->name.c_str(),sport->description.c_str());
+		_temp_storage_file<<temp;
+		sprintf(temp,"%s,%s\n",sport->hand.c_str(),sport->side.c_str());
+		_temp_storage_file<<temp;
+		//sprintf(temp,"%s\n",Utils::DateFormat.format(sport->start_time));
+		//_temp_storage_file<<temp;
+		sprintf(temp,"x\ty\tz\n");
+		_temp_storage_file<<temp;
+	}
+	_temp_storage_file.close();
 	//// print information
 	//fout.write(("\nActivity Name: " + sport->name + "/" + sport->description + "\n")
 	//	.getBytes());
@@ -86,6 +100,20 @@ void StorageManager::startWritingSport(Sport* sport){
 
 void StorageManager::writeSamples(double* xValues, double* yValues,double* zValues, int sampleCount) 
 {
+	_temp_storage_file.open("acceleration_lab_temp.txt");  
+	if(_temp_storage_file.is_open())   
+	{
+		for (int i = 0; i < sampleCount; ++i)
+		{
+			char temp[128];
+			sprintf(temp,"%.4f\t%.4f\t%.4f\n",xValues[i],yValues[i],zValues[i]);
+			_temp_storage_file<<temp;
+		}
+			//fout.write((String.format("%.4f", xValues[i]) + "\t"
+			//+ String.format("%.4f", yValues[i]) + "\t"
+			//+ String.format("%.4f", zValues[i]) + "\n").getBytes());
+	}
+	_temp_storage_file.close();
 	//FileOutputStream fout = new FileOutputStream(_temp_storage_file, true);
 	//for (int i = 0; i < sampleCount; ++i)
 	//	fout.write((String.format("%.4f", xValues[i]) + "\t"

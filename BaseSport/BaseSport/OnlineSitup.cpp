@@ -15,20 +15,20 @@ OnlineSitup::OnlineSitup(int sampling_rate):OnlineSport(sampling_rate, 500, 3000
 }
 
 int OnlineSitup::isPossibleValidAction(int axis) {
-	PeakWindow firstWindow = _firstWindows[axis];
-	PeakWindow secondWindow = _secondWindows[axis];
+	PeakWindow* firstWindow = _firstWindows[axis];
+	PeakWindow* secondWindow = _secondWindows[axis];
 
 	if (
 		// different values
-			firstWindow.isPositive() * secondWindow.isPositive() < 0
+			firstWindow->isPositive() * secondWindow->isPositive() < 0
 
 			// max value limits
-			&& firstWindow.absMaxValue() >= 0.3
-			&& secondWindow.absMaxValue() >= 0.3
+			&& firstWindow->absMaxValue() >= 0.3
+			&& secondWindow->absMaxValue() >= 0.3
 
 			// bandwidth limits
-			&& firstWindow.bandwidth() >= 10
-			&& secondWindow.bandwidth() >= 10)
+			&& firstWindow->bandwidth() >= 10
+			&& secondWindow->bandwidth() >= 10)
 			return true;
 	else
 		return false;
