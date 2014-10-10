@@ -114,7 +114,7 @@ public:
 	 * @return if success, return true, otherwise return false.
 	 * 
 	 * */
-	int addValue(Sample sample, int axis) ;
+	int addValue(Sample& sample, int axis) ;
 
 	/**
 	 * Add the value to the window. The value should be the same property of the

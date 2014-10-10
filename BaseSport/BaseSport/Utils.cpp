@@ -51,7 +51,7 @@ string Utils::ParseTime(string time_string) {
 
 double Utils::getCosineSimilarity(vector<double> array1, vector<double> array2) 
 {
-	assert (array1.size() != array2.size());
+	assert (array1.size() == array2.size());
 
 	if (array1.size() <= 0)
 		return 0;
@@ -83,7 +83,7 @@ double Utils::getCosineSimilarity(vector<double> array1, vector<double> array2)
 double Utils::getEuclideanSimilarity(vector<double> array1,vector<double> array2) 
 {
 
-	assert(array1.size() != array2.size());
+	assert(array1.size() == array2.size());
 	if (array1.size() <= 0)
 		return 0;
 

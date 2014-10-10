@@ -1,36 +1,41 @@
 #include "Sport.h"
 
-Sport::Sport()
+void Sport::Init()
 {
 	_valid_action_count = 0;
 	_last_reset_action_num = 0;
 	_sample_count = 0;
 	_last_reset_sample_num = 0;
 	//_basic_features = new double*[Utils::MaxAxisCount];
-	//for (int i = 0 ;i< Utils::MaxAxisCount; i++)
-	//{
-	//	_basic_features[i] = new double[Utils::BasicFeatureCount];
-	//}
+	for (int i = 0 ;i< Utils::MaxAxisCount; i++)
+	{
+		for(int j = 0; j<Utils::BasicFeatureCount;j++)
+		{
+			_basic_features[i][j] = 0;
+		}
+	}
 	
+}
+
+Sport::Sport()
+{
+	Init();
 }
 
 Sport::~Sport()
 {
-	//for (int i = 0; i< Utils::MaxAxisCount; i++)
-	//{
-	//	delete[] _basic_features[i];
-	//}
-	//delete[] _basic_features;
+
 }
 
 //useless!
 Sport::Sport(int sampling_rate) {
 	samplingRate = Utils::SamplingRate;
+	Init();
 
 }
 
-//void Sport::SplitSamplesByCount(int sample_count, double overlap_ratio)
-//	{
+void Sport::SplitSamplesByCount(int sample_count, double overlap_ratio)
+{
 //
 //		// check input param
 //		if (overlap_ratio < 0 || overlap_ratio >= 1)
@@ -61,7 +66,7 @@ Sport::Sport(int sampling_rate) {
 //			// new position
 //			start_index += sample_count - back_count;
 //		}
-//}
+}
 
 //useless! always return false!!
 int Sport::receiveSample(Sample sample, bool useMinusAvg)
@@ -209,13 +214,14 @@ vector<Sport> Sport::Parse(string input_file, int sampling_rate)
 	//return activities;
 }
 
-void Sport::calculateFeatureByNewSample(Sample sample) {
-	Sample* minusAvgSample = sample.GetMinusAvgSample();
+void Sport::calculateFeatureByNewSample(Sample& sample) {
+	Sample minusAvgSample;
+	sample.GetMinusAvgSample(minusAvgSample);
 
 	for (int i = 0; i < Utils::MaxAxisCount; ++i) {
 
 		// standard deviation
-		_basic_features[i][0] += (minusAvgSample->AxisValues[i]	* minusAvgSample->AxisValues[i] - _basic_features[i][0])/ sample.index;
+		_basic_features[i][0] += (minusAvgSample.AxisValues[i]	* minusAvgSample.AxisValues[i] - _basic_features[i][0])/ sample.index;
 	}
 }
 

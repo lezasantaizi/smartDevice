@@ -2,9 +2,19 @@
 
 int OnlineSport::_MAX_DISCARD_SAMPLE_COUNT = 2;
 
+void OnlineSport::Init()
+{
+	for (int i = 0 ;i < 3; i++)
+	{
+		_isPossibleValidActions[i] = 0;
+		_pattern_similarity_scores[i] = 0;
+	}
+	
+}
+
 OnlineSport::OnlineSport()
 {
-
+	Init();
 }
 
 OnlineSport::~OnlineSport()
@@ -23,6 +33,7 @@ OnlineSport::OnlineSport(int samplingRate, int minActionMilliSeconds,
 			int maxActionMilliSeconds, int minActionIntervalMillseSeconds,
 			int maxPatternSize, double patternSimilarThreshold,
 			double absBandwidthThreshold) :Sport(samplingRate){
+				Init();
 				//super(samplingRate);
 				_min_window_sample_count = (minActionMilliSeconds * samplingRate / 1000);
 				_max_window_sample_count = (maxActionMilliSeconds * samplingRate / 1000);
@@ -36,9 +47,18 @@ OnlineSport::OnlineSport(int samplingRate, int minActionMilliSeconds,
 }
 
 
-int OnlineSport::receiveSample(Sample sample, bool useMinusAvg)
+int OnlineSport::receiveSample(Sample& sample, bool useMinusAvg)
 {
-	Sample usedSample = useMinusAvg ? *(sample.GetMinusAvgSample()) : sample;
+	Sample usedSample;
+	if (useMinusAvg)
+	{
+		sample.GetMinusAvgSample(usedSample);
+	}
+	else
+	{
+		usedSample = sample;
+	}
+	//Sample usedSample =  ?  : ;
 	_sample_count = sample.index;
 
 	// calculate the overall basic features by input sample
@@ -59,7 +79,7 @@ int OnlineSport::receiveSample(Sample sample, bool useMinusAvg)
 	return isValid;
 }
 
-int OnlineSport::receiveSample(Sample sample, int axis) 
+int OnlineSport::receiveSample(Sample& sample, int axis) 
 {
 	// second window is not empty: then try to add to second window
 	if (_secondWindows[axis]->isPositive() != 0) {
@@ -150,7 +170,7 @@ string OnlineSport::getDebugString() {
 	// valid action count on each axis
 	for (int k = 0; k < Utils::MaxAxisCount; ++k)
 	{
-		sprintf(temp,"\t%6.4f",_patternLists[k]->getActionCount() / 10.0);
+		sprintf(temp,"\t%.1f",_patternLists[k]->getActionCount() / 10.0);
 		sample_line += temp;
 	}
 
@@ -166,16 +186,14 @@ string OnlineSport::getDebugString() {
 		{
 			sample_line += "\t0";
 		}
-		//sprintf(temp,"\t%6.4f",( ? 1 : 0));
-		//sample_line += temp;
-		//sample_line += "\t" + ;
+
 	}
 		
 
 	// pattern similarity score on each axis
 	for (int k = 0; k < Utils::MaxAxisCount; ++k)
 	{
-		sprintf(temp,"\t%6.4f",_pattern_similarity_scores[k] * 10);
+		sprintf(temp,"\t%.1f",_pattern_similarity_scores[k] * 10);
 		sample_line += temp;
 	}
 
@@ -185,7 +203,7 @@ string OnlineSport::getDebugString() {
 	double max_std = max(max(_basic_features[0][0], _basic_features[1][0]),
 		_basic_features[2][0]);
 
-	sprintf(temp,"\t%6.4f",max_std / min_std);
+	sprintf(temp,"\t%.1f",max_std / min_std);
 	sample_line += temp;
 
 	return sample_line;

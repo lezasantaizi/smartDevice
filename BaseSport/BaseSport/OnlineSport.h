@@ -34,7 +34,7 @@ private :
 	 * the similarity scores of the pattern
 	 * */
 	double _pattern_similarity_scores[3];
-	int receiveSample(Sample sample, int axis);
+	int receiveSample(Sample& sample, int axis);
 
 		/**
 	 * Judge whether current two windows construct a valid action
@@ -43,7 +43,7 @@ private :
 	 *            the specific axis for the target two windows
 	 * */
 	int isValidAction(int axis) ;
-
+	void Init();
 protected:
 		/**
 	 * the first peak windows on each axis
@@ -109,7 +109,7 @@ public:
 	 * API: receive the sample
 	 * */
 
-	virtual int receiveSample(Sample sample, bool useMinusAvg);
+	virtual int receiveSample(Sample& sample, bool useMinusAvg);
 
 	/**
 	 * Receive the sample value by specific axis

@@ -81,7 +81,7 @@ private:
      * get the action count in test
      * */
     int _test_action_count ;
-
+	void Init();
     /**
      * @param storageFolder
      *            by default, it is the value of

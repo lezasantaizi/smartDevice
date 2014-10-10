@@ -35,7 +35,7 @@ PeakWindow::PeakWindow(int axis, double absBrandwidthThreshold) {
 	Init();
 }
 
-int PeakWindow::addValue(Sample sample, int axis){
+int PeakWindow::addValue(Sample& sample, int axis){
 	assert(axis == this->axis());
 	return addValue(sample.AxisValues[axis], sample.index);
 }
@@ -217,7 +217,7 @@ int PeakWindow::averageWindow(PeakWindow otherWindow, int selfCount,
 					  otherCount = 2;
 
 					  // exceptions
-					  assert (selfCount <= 0 || otherCount <= 0);
+					  assert (selfCount > 0 && otherCount > 0);
 
 					  // get ratios
 					  double sum = selfCount + otherCount;

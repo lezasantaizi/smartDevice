@@ -69,6 +69,6 @@ public:
 	/**
 	 * Get the minus avg sample
 	 * */
-	Sample* GetMinusAvgSample() ;
+	void GetMinusAvgSample(Sample& TempSample);
 };
 #endif

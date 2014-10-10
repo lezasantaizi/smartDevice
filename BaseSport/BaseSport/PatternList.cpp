@@ -166,10 +166,10 @@ double PatternList::getLastSimilarityScore()
 }
 
 void PatternList::zeroClearing() {
-	//PatternNode* cur_node = _head;
-	//while(cur_node != NULL)
-	//{
-	//	cur_node->zeroClearing();
-	//	*cur_node = cur_node->nextNode();
-	//}
+	PatternNode* cur_node = _head;
+	while(cur_node != NULL)
+	{
+		cur_node->zeroClearing();
+		cur_node = cur_node->nextNode();
+	}
 }

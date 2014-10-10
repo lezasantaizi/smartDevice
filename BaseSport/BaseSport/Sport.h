@@ -172,7 +172,8 @@ protected:
      * calculate some basic features from the overall sport perspective, such as
      * Please input the original sample, not the minus avg sample.
      * */
-void calculateFeatureByNewSample(Sample sample) ;
+	void calculateFeatureByNewSample(Sample& sample) ;
+	void Init();
 };
 
 

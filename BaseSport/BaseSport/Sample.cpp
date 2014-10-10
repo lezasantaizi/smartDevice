@@ -10,7 +10,10 @@ Sample::Sample()
 double Sample::AverageAxisValues[3] = {0};
 Sample::~Sample()
 {
-
+	if(MinusAvgSample != NULL) 
+		delete MinusAvgSample;
+	MinusAvgSample = NULL;
+	
 }
 
 Sample::Sample(int idx, double x, double y, double z) {
@@ -41,7 +44,7 @@ void Sample::resetAverageAxisValues() {
 		AverageAxisValues[i] = 0;
 }
 //
-Sample* Sample::GetMinusAvgSample() {
+void Sample::GetMinusAvgSample(Sample& TempSample) {
 	if (MinusAvgSample == NULL) {
 		AverageAxisValues[0] += (AxisValues[0] - AverageAxisValues[0])
 			/ index;
@@ -55,6 +58,5 @@ Sample* Sample::GetMinusAvgSample() {
 			AxisValues[1] - AverageAxisValues[1],
 			AxisValues[2] - AverageAxisValues[2]);
 	}
-
-	return MinusAvgSample;
+	TempSample = *MinusAvgSample;
 }

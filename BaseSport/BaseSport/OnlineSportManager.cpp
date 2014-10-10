@@ -1,6 +1,6 @@
 #include "OnlineSportManager.h"
 
-OnlineSportManager::OnlineSportManager()
+void OnlineSportManager::Init()
 {
 	_max_recored_sample_count = 100;
 	_dump_sample_count = 25;
@@ -14,6 +14,11 @@ OnlineSportManager::OnlineSportManager()
 	_test_action_count = 0;
 	_storageManager = new StorageManager();
 	_sport = new Sport();
+}
+
+OnlineSportManager::OnlineSportManager()
+{
+
 }
 
 OnlineSportManager::~OnlineSportManager()
@@ -25,20 +30,10 @@ OnlineSportManager::~OnlineSportManager()
 	delete _sport;
 }
 
-OnlineSportManager::OnlineSportManager(string storageFolder) {
+OnlineSportManager::OnlineSportManager(string storageFolder) 
+{
 	_storageManager = new StorageManager(storageFolder);
-	_max_recored_sample_count = 100;
-	_dump_sample_count = 25;
-	_sample_count = 0;
-	_x_accelerations = new double[_max_recored_sample_count];
-	_y_accelerations = new double[_max_recored_sample_count];
-	_z_accelerations = new double[_max_recored_sample_count];
-	_sample_index = 1;
-	_header_printed = false;
-	_support_online_show = false;
-	_test_action_count = 0;
-	_storageManager = new StorageManager();
-	_sport = new Sport();
+	Init();
 }
 
 void OnlineSportManager::cleanStorage() {
@@ -141,7 +136,7 @@ void OnlineSportManager::start(string sportName, string hand, string side,
 	_sport->description = description;
 	_sport->hand = hand;
 	_sport->side = side;
-	//_sport->start_time = new Date();
+	_sport->start_time = "";//new Date();
 	_header_printed = false;
 }
 
@@ -191,11 +186,12 @@ int OnlineSportManager::test(string testFile)
 
 			for (int j = 0; j < activity.Samples.size(); ++j) {
 
-				Sample sample = activity.Samples[i];//.get(j);
-				Sample* minusAvgSample = sample.GetMinusAvgSample();
+				Sample sample = activity.Samples[j];//.get(j);
+				Sample minusAvgSample;
+				sample.GetMinusAvgSample(minusAvgSample);
 				char temp[128];
-				sprintf(temp,"%d\t%.4f\t%.4f\t%.4f\t%.4f\t",minusAvgSample->index,minusAvgSample->AxisValues[0],
-					minusAvgSample->AxisValues[1],minusAvgSample->AxisValues[2],minusAvgSample->A);
+				sprintf(temp,"%d\t%.4f\t%.4f\t%.4f\t%.4f\t",minusAvgSample.index,minusAvgSample.AxisValues[0],
+					minusAvgSample.AxisValues[1],minusAvgSample.AxisValues[2],minusAvgSample.A);
 				string sample_line = temp;
 				//string sample_line = string.format(
 				//	"%d\t%.4f\t%.4f\t%.4f\t%.4f\t",
@@ -217,12 +213,13 @@ int OnlineSportManager::test(string testFile)
 				{
 					sample_line += "0";
 				}
-
-				sample_line += sport->getDebugString();
+				//string tempStr = ;
+				sample_line +=  sport->getDebugString();
 				sample_line += "\n";
 
 				sport->resetIsPossibleValidActions();
 				//fout.write(sample_line.getBytes());
+				outfile<<sample_line.c_str();
 			}
 		}
 
