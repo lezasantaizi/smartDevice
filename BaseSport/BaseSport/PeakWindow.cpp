@@ -40,9 +40,11 @@ int PeakWindow::addValue(Sample& sample, int axis){
 	return addValue(sample.AxisValues[axis], sample.index);
 }
 
-int PeakWindow::addValue(double value, int index) {
+int PeakWindow::addValue(double value, int index) 
+{
 	// empty: directly add
-	if (size() <= 0) {
+	if (size() <= 0) 
+	{
 		// add to list
 		_startIndex = index;
 		_endIndex = index;
@@ -67,7 +69,8 @@ int PeakWindow::addValue(double value, int index) {
 		return true;
 	}
 	// not empty and match both positive and negative
-	else if (value * isPositive() > 0 || (value == 0 && isPositive() > 0)) {
+	else if (value * isPositive() > 0 || (value == 0 && isPositive() > 0)) 
+	{
 		// add to list
 		_endIndex = index;
 		_sampleValues.push_back(value);
@@ -87,7 +90,8 @@ int PeakWindow::addValue(double value, int index) {
 
 	}
 	// not empty and match
-	else {
+	else 
+	{
 		return false;
 	}
 }

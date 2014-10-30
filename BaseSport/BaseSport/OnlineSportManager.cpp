@@ -184,7 +184,8 @@ int OnlineSportManager::test(string testFile)
 			else
 				continue;
 
-			for (int j = 0; j < activity.Samples.size(); ++j) {
+			for (int j = 0; j < activity.Samples.size(); ++j) 
+			{
 
 				Sample sample = activity.Samples[j];//.get(j);
 				Sample minusAvgSample;
@@ -203,10 +204,9 @@ int OnlineSportManager::test(string testFile)
 
 				if (sport->receiveSample(sample, true)) 
 				{
-					char temp[64];
-					
+					char temp[64];					
 					_test_action_count = sport->getActionCount();
-					sprintf(temp, "%6.4f", _test_action_count / 10.0);
+					sprintf(temp, "%.4f", _test_action_count / 10.0);
 					sample_line += temp;//Double.toString(_test_action_count / 10.0);
 				} 
 				else 

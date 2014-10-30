@@ -46,14 +46,14 @@ public:
 	 * 
 	 * @return the valid action count
 	 * */
-	int add(PeakWindow* firstWindow, PeakWindow* secondWindow);
+	int add(PeakWindow& firstWindow, PeakWindow& secondWindow);
 
 	/**
 	 * Swap two consecutive nodes
 	 * 
 	 * @throws Exception
 	 * */
-	void swap(PatternNode* firstNode, PatternNode* secondNode);
+	void swap(PatternNode& firstNode, PatternNode& secondNode);
 
 	/**
 	 * delete the specified node.

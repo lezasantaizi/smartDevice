@@ -92,9 +92,9 @@ int OnlineSport::receiveSample(Sample& sample, int axis)
 				_secondWindows[axis]->clear();
 				receiveSample(sample, axis);
 			}
-
 			// discard the first and second window if it is small
-			else if (_secondWindows[axis]->size() < _min_window_sample_count) {
+			else if (_secondWindows[axis]->size() < _min_window_sample_count) 
+			{
 
 				_firstWindows[axis]->clear();
 				_secondWindows[axis]->clear();
@@ -102,7 +102,8 @@ int OnlineSport::receiveSample(Sample& sample, int axis)
 			}
 
 			// A VALID ACTION CANDIDATE!
-			else {
+			else 
+			{
 				int isValid = isValidAction(axis);
 				_firstWindows[axis]->clear();
 				_secondWindows[axis]->clear();
@@ -149,12 +150,10 @@ int OnlineSport::isValidAction(int axis) {
 		_secondWindows[axis]->calculateFeatures();
 
 		int formerActionCount = _patternLists[axis]->getActionCount();
-		int currentActionCount = _patternLists[axis]->add(
-			_firstWindows[axis], _secondWindows[axis]);
+		int currentActionCount = _patternLists[axis]->add(*_firstWindows[axis], *_secondWindows[axis]);
 
 		_isPossibleValidActions[axis] = true;
-		_pattern_similarity_scores[axis] = _patternLists[axis]
-		->getLastSimilarityScore();
+		_pattern_similarity_scores[axis] = _patternLists[axis]->getLastSimilarityScore();
 
 		return currentActionCount != formerActionCount;
 	} else {

@@ -42,7 +42,7 @@ int PatternList::getActionCount() {
 		return _head->size();
 }
 
-int PatternList::add(PeakWindow* firstWindow, PeakWindow* secondWindow)
+int PatternList::add(PeakWindow& firstWindow, PeakWindow& secondWindow)
 {
 
 			// find the similar pattern
@@ -50,7 +50,7 @@ int PatternList::add(PeakWindow* firstWindow, PeakWindow* secondWindow)
 			while (cur_node != NULL) {
 
 				// when found the expired pattern, delete it
-				if (firstWindow->startIndex() - cur_node->endIndex() > _max_interval_sample_count
+				if (firstWindow.startIndex() - cur_node->endIndex() > _max_interval_sample_count
 					&& cur_node->size() < Utils::MinValidPatternActionCount) {
 
 						PatternNode* next_node = cur_node->nextNode();
@@ -60,17 +60,17 @@ int PatternList::add(PeakWindow* firstWindow, PeakWindow* secondWindow)
 				}
 
 				// when found the similar pattern, merge it
-				_last_similarity = cur_node->getSimilarity(*firstWindow,
-					*secondWindow);
+				_last_similarity = cur_node->getSimilarity(firstWindow,
+					secondWindow);
 				if (_last_similarity >= _similarThreshold) {
 
 					// when merge success: (A1+B1, A2+B2) or (A1+B2, A2+B1)
-					if (cur_node->averageWindow(*firstWindow, *secondWindow)
-						|| cur_node->averageWindow(*secondWindow, *firstWindow)) {
+					if (cur_node->averageWindow(firstWindow, secondWindow)
+						|| cur_node->averageWindow(secondWindow, firstWindow)) {
 
 							// bubble sort
 							while (cur_node->formerNode() != NULL && cur_node->size() > cur_node->formerNode()->size())
-								swap(cur_node->formerNode(), cur_node);
+								swap(*cur_node->formerNode(), *cur_node);
 
 							break;
 					}
@@ -83,8 +83,8 @@ int PatternList::add(PeakWindow* firstWindow, PeakWindow* secondWindow)
 			// no similar pattern found
 			if (cur_node == NULL) {
 				// create a new pattern
-				PatternNode* new_node = new PatternNode(*firstWindow,
-					*secondWindow);
+				PatternNode* new_node = new PatternNode(firstWindow,
+					secondWindow);
 
 				// empty
 				if (_count <= 0) {
@@ -118,30 +118,27 @@ int PatternList::add(PeakWindow* firstWindow, PeakWindow* secondWindow)
 			return _head == NULL ? 0 : _head->size();
 }
 
-void PatternList::swap(PatternNode* firstNode, PatternNode* secondNode)
+void PatternList::swap(PatternNode& firstNode, PatternNode& secondNode)
 {
+	assert(firstNode.nextNode() == &secondNode);
 
-	assert(firstNode->nextNode() == secondNode);
-		//throw new Exception(
-		//"Second node is not the next node of first node");
+	if (_head == &firstNode)
+		_head = &secondNode;
 
-	if (_head == firstNode)
-		_head = secondNode;
+	if (_tail == &secondNode)
+		_tail = &firstNode;
 
-	if (_tail == secondNode)
-		_tail = firstNode;
+	if (secondNode.nextNode() != NULL)
+		secondNode.nextNode()->setFormerNode(&firstNode);
 
-	if (secondNode->nextNode() != NULL)
-		secondNode->nextNode()->setFormerNode(firstNode);
+	if (firstNode.formerNode() != NULL)
+		firstNode.formerNode()->setNextNode(&secondNode);
 
-	if (firstNode->formerNode() != NULL)
-		firstNode->formerNode()->setNextNode(secondNode);
+	firstNode.setNextNode(secondNode.nextNode());
+	secondNode.setFormerNode(firstNode.formerNode());
 
-	firstNode->setNextNode(secondNode->nextNode());
-	secondNode->setFormerNode(firstNode->formerNode());
-
-	secondNode->setNextNode(firstNode);
-	firstNode->setFormerNode(secondNode);
+	secondNode.setNextNode(&firstNode);
+	firstNode.setFormerNode(&secondNode);
 }
 
 void PatternList::deleteAll(PatternNode* node) {
